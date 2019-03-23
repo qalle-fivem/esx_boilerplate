@@ -1,4 +1,3 @@
-# fxserver-esx_boilerplate
-FXServer ESX Boilerplate
+# esx_boilerplate
 
-This a sample script for es_extended
+This is an sample of what an esx script shoud look like.

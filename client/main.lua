@@ -1,19 +1,29 @@
-ESX              = nil
-local PlayerData = {}
+ESX = nil
 
 Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+    while ESX == nil do
+        -- <> Fetch ESX Library <> --
+        TriggerEvent("esx:getSharedObject", function(library) 
+            ESX = library 
+        end)
+
 		Citizen.Wait(0)
-	end
+    end
+    
+    -- <> Restart Script Fetch Information <> --
+    if ESX.IsPlayerLoaded() then
+        ESX.PlayerData = ESX.GetPlayerData()
+    end
 end)
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
-  PlayerData = xPlayer   
+-- <> On Player Load <> --
+RegisterNetEvent("esx:playerLoaded")
+AddEventHandler("esx:playerLoaded", function(playerData)
+    ESX.PlayerData = playerData   
 end)
 
-RegisterNetEvent('esx:setJob')
-AddEventHandler('esx:setJob', function(job)
-  PlayerData.job = job
+-- <> On Player Change Job <> --
+RegisterNetEvent("esx:setJob")
+AddEventHandler("esx:setJob", function(job)
+    ESX.PlayerData["job"] = job
 end)
